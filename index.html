@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học Tiếng Pháp A1 - Le Nouveau Taxi! 1 (Leçon 15 & 16)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastel: {
+                            blue: '#4A90E2',
+                            blueLight: '#EBF3FA',
+                            blueDark: '#2C5E9E',
+                            orange: '#FF8C42',
+                            orangeLight: '#FFF2E9',
+                            orangeDark: '#D96B27',
+                            bg: '#F8FAFC',
+                            card: '#FFFFFF',
+                            text: '#334155'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .tab-btn.active {
+            color: #4A90E2;
+            border-bottom-color: #4A90E2;
+            font-weight: 700;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .accordion-content.open {
+            max-height: 2000px;
+            transition: max-height 0.5s ease-in;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-pastel-bg text-pastel-text font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-pastel-blue to-pastel-orange flex items-center justify-center text-white font-bold text-xl shadow-md">
+                        FR
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-slate-800 text-lg leading-tight">Le Nouveau Taxi! 1</h1>
+                        <p class="text-xs text-slate-500 font-medium">Leçon 15 & 16 (Niveau A1)</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Tabs -->
+                <nav class="hidden md:flex space-x-1 lg:space-x-4">
+                    <button onclick="switchTab('home')" id="nav-home" class="tab-btn active px-3 py-2 text-sm font-medium border-b-2 border-transparent text-slate-600 hover:text-pastel-blue transition">Trang chủ</button>
+                    <button onclick="switchTab('lecon15')" id="nav-lecon15" class="tab-btn px-3 py-2 text-sm font-medium border-b-2 border-transparent text-slate-600 hover:text-pastel-blue transition">Leçon 15</button>
+                    <button onclick="switchTab('lecon16')" id="nav-lecon16" class="tab-btn px-3 py-2 text-sm font-medium border-b-2 border-transparent text-slate-600 hover:text-pastel-blue transition">Leçon 16</button>
+                    <button onclick="switchTab('test')" id="nav-test" class="tab-btn px-3 py-2 text-sm font-medium border-b-2 border-transparent text-slate-600 hover:text-pastel-blue transition">Kiểm tra tổng hợp</button>
+                    <button onclick="switchTab('progress')" id="nav-progress" class="tab-btn px-3 py-2 text-sm font-medium border-b-2 border-transparent text-slate-600 hover:text-pastel-blue transition">Tiến độ</button>
+                </nav>
+
+                <!-- Global Progress Bar -->
+                <div class="hidden lg:flex items-center space-x-3 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200">
+                    <span class="text-xs font-semibold text-slate-600">Tiến độ:</span>
+                    <div class="w-24 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                        <div id="global-progress-bar" class="bg-pastel-orange h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <span id="global-progress-text" class="text-xs font-bold text-pastel-orange">0%</span>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="p-2 rounded-md text-slate-600 hover:bg-slate-100 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-1 shadow-lg">
+            <button onclick="switchTab('home'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-pastel-blueLight hover:text-pastel-blue">Trang chủ</button>
+            <button onclick="switchTab('lecon15'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-pastel-blueLight hover:text-pastel-blue">Leçon 15: Le dimanche matin</button>
+            <button onclick="switchTab('lecon16'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-pastel-blueLight hover:text-pastel-blue">Leçon 16: Une journée avec Laure Manaudou</button>
+            <button onclick="switchTab('test'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-pastel-blueLight hover:text-pastel-blue">Kiểm tra tổng hợp (40 câu)</button>
+            <button onclick="switchTab('progress'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-pastel-blueLight hover:text-pastel-blue">Tiến độ & Lịch sử</button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- ==================== TAB 1: TRANG CHỦ (HOME) ==================== -->
+        <section id="tab-home" class="space-y-8">
+            <!-- Hero Banner -->
+            <div class="bg-gradient-to-r from-pastel-blue to-pastel-blueDark rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+                <div class="relative z-10 max-w-2xl">
+                    <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md text-white text-xs font-semibold rounded-full mb-3">Chương trình A1 chuyên sâu</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mb-4 leading-tight">Chinh phục Ngữ pháp & Từ vựng Leçon 15 & 16</h2>
+                    <p class="text-slate-100 mb-6 text-sm sm:text-base leading-relaxed">Tập trung chuyên sâu vào Động từ phản thân, cách chia Lire & Écrire, phân biệt Faire de vs Jouer à và luyện tập phản xạ qua ngân hàng bài tập tương tác chuẩn A1.</p>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="switchTab('lecon15')" class="px-6 py-3 bg-pastel-orange hover:bg-pastel-orangeDark text-white font-bold rounded-xl shadow-lg transition transform hover:-translate-y-0.5">Bắt đầu học Leçon 15</button>
+                        <button onclick="switchTab('test')" class="px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold rounded-xl transition">Làm bài test 40 câu</button>
+                    </div>
+                </div>
+                <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+            </div>
+
+            <!-- Course Modules Cards -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Lesson 15 Card -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-3 py-1 bg-pastel-blueLight text-pastel-blue text-xs font-bold rounded-lg">LEÇON 15</span>
+                            <span id="home-l15-progress" class="text-xs font-bold text-slate-500">Hoàn thành: 0%</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">Le dimanche matin</h3>
+                        <p class="text-sm text-slate-600 mb-4">Sáng Chủ nhật - Hoạt động thường ngày, môn thể thao & Ngữ pháp trọng tâm (Verbes pronominaux, Lire/Écrire, Faire/Jouer).</p>
+                        <ul class="text-xs text-slate-500 space-y-1 mb-6">
+                            <li class="flex items-center">✓ Động từ phản thân (se lever, se laver...)</li>
+                            <li class="flex items-center">✓ Chia động từ bất quy tắc LIRE & ÉCRIRE</li>
+                            <li class="flex items-center">✓ Phân biệt FAIRE DE vs JOUER À + Môn thể thao</li>
+                        </ul>
+                    </div>
+                    <button onclick="switchTab('lecon15')" class="w-full py-2.5 bg-pastel-blueLight hover:bg-pastel-blue hover:text-white text-pastel-blue font-bold rounded-xl transition text-center">Vào bài học</button>
+                </div>
+
+                <!-- Lesson 16 Card -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-3 py-1 bg-pastel-orangeLight text-pastel-orange text-xs font-bold rounded-lg">LEÇON 16</span>
+                            <span id="home-l16-progress" class="text-xs font-bold text-slate-500">Hoàn thành: 0%</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">Une journée avec Laure Manaudou</h3>
+                        <p class="text-sm text-slate-600 mb-4">Một ngày cùng Laure Manaudou - Lịch trình vận động viên, đọc hiểu bài báo, từ nối trình tự & luyện viết đoạn văn ngắn.</p>
+                        <ul class="text-xs text-slate-500 space-y-1 mb-6">
+                            <li class="flex items-center">✓ Đọc hiểu bài báo A1 & Công tắc dịch Việt</li>
+                            <li class="flex items-center">✓ Từ nối trình tự (D'abord, ensuite, puis...)</li>
+                            <li class="flex items-center">✓ Luyện viết chủ đề lịch sinh hoạt hằng ngày</li>
+                        </ul>
+                    </div>
+                    <button onclick="switchTab('lecon16')" class="w-full py-2.5 bg-pastel-orangeLight hover:bg-pastel-orange hover:text-white text-pastel-orange font-bold rounded-xl transition text-center">Vào bài học</button>
+                </div>
+            </div>
+
+            <!-- Quick Stats & Shortcuts -->
+            <div class="bg-slate-900 rounded-2xl p-6 text-white grid sm:grid-cols-3 gap-6 shadow-lg">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-xl bg-pastel-blue/20 flex items-center justify-center text-pastel-blue font-bold text-xl">📚</div>
+                    <div>
+                        <div class="text-xs text-slate-400 font-semibold">TỔNG KIẾN THỨC</div>
+                        <div class="text-lg font-bold">2 Bài chính + 3 Ngữ pháp</div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-xl bg-pastel-orange/20 flex items-center justify-center text-pastel-orange font-bold text-xl">✍️</div>
+                    <div>
+                        <div class="text-xs text-slate-400 font-semibold">NGÂN HÀNG BÀI TẬP</div>
+                        <div class="text-lg font-bold">> 60 Câu tương tác</div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center text-green-400 font-bold text-xl">🏆</div>
+                    <div>
+                        <div class="text-xs text-slate-400 font-semibold">ĐIỂM TEST CAO NHẤT</div>
+                        <div id="home-best-score" class="text-lg font-bold text-green-400">Chưa làm</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 2: LEÇON 15 ==================== -->
+        <section id="tab-lecon15" class="hidden space-y-8">
+            <!-- Header section -->
+            <div class="border-b border-slate-200 pb-5">
+                <span class="text-xs font-bold text-pastel-blue uppercase tracking-wider">Unité 4 - Le Nouveau Taxi! 1</span>
+                <h2 class="text-3xl font-extrabold text-slate-800 mt-1">Leçon 15 : Le dimanche matin</h2>
+                <p class="text-slate-600 mt-2 text-sm sm:text-base">Chủ đề: Sáng Chủ nhật - Hoạt động thường ngày - Thể thao & Ngữ pháp nền tảng A1.</p>
+            </div>
+
+            <!-- Accordion: Mục tiêu & Từ vựng -->
+            <div class="space-y-4">
+                <!-- Vocab Accordion -->
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                    <button onclick="toggleAccordion('l15-vocab-acc')" class="w-full px-6 py-4 text-left font-bold text-lg text-slate-800 flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
+                        <span>📖 1. Vocabulaire - Từ vựng trọng tâm (Có Audio)</span>
+                        <span id="l15-vocab-acc-icon" class="text-xl">▼</span>
+                    </button>
+                    <div id="l15-vocab-acc" class="accordion-content p-6 border-t border-slate-200 space-y-6">
+                        <!-- Search Box -->
+                        <div class="relative">
+                            <input type="text" id="v15-search" oninput="filterVocab('v15-search', 'v15-table')" placeholder="Tìm kiếm từ vựng (Pháp hoặc Việt)..." class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-pastel-blue">
+                            <span class="absolute left-3 top-2.5 text-slate-400">🔍</span>
+                        </div>
+
+                        <!-- Vocab Tables -->
+                        <div class="overflow-x-auto">
+                            <table id="v15-table" class="w-full text-left text-sm border-collapse">
+                                <thead>
+                                    <tr class="bg-pastel-blueLight text-pastel-blueDark font-semibold border-b">
+                                        <th class="p-3 rounded-tl-lg">Tiếng Pháp</th>
+                                        <th class="p-3">Nghĩa tiếng Việt</th>
+                                        <th class="p-3">Phân loại</th>
+                                        <th class="p-3 rounded-tr-lg text-center">Phát âm</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100">
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-3 font-semibold text-slate-800">se lever</td>
+                                        <td class="p-3">thức dậy</td>
+                                        <td class="p-3 text-xs text-slate-500">Hoạt động</td>
+                                        <td class="p-3 text-center"><button onclick="speakFrench('se lever')" class="px-2 py-1 bg-slate-100 hover:bg-pastel-blueLight rounded text-xs">🔊</button></td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-3 font-semibold text-slate-800">se laver</td>
+                                        <td class="p-3">tắm rửa / rửa mặt</td>
+                                        <td class="p-3 text-xs text-slate-500">Hoạt động</td>
+                                        <td class="p-3 text-center"><button onclick="speakFrench('se laver')" class="px-2 py-1 bg-slate-100 hover:bg-pastel-blueLight rounded text-xs">🔊</button></td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-3 font-semibold text-slate-800">s'habiller</td>
+                                        <td class="p-3">mặc quần áo</td>
+                                        <td class="p-3 text-xs text-slate-500">Hoạt động</td>
+                                        <td class="p-3 text-center"><button onclick="speakFrench('s habiller')" class="px-2 py-1 bg-slate-100 hover:bg-pastel-blueLight rounded text-xs">🔊</button></td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-3 font-semibold text-slate-800">faire le ménage</td>
+                                        <td class="p-3">làm việc nhà</td>
+                                        <td class="p-3 text-xs text-slate-500">Hoạt động</td>
+                                        <td class="p-3 text-center"><button onclick="speakFrench('faire le ménage')" class="px-2 py-1 bg-slate-100 hover:bg-pastel-blueLight rounded text-xs">🔊</button></td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-3 font-semibold text-slate-800">faire les courses</td>
+                                        <td class="p-3">đi mua sắm đồ ăn</td>
+                                        <td class="p-3 text-xs text-slate-500">Hoạt động</td>
+                                        <td class="p-3 text-center"><button onclick="speakFrench('faire les courses')" class="px-2 py-1 bg-slate-100 hover:bg-pastel-blueLight rounded text-xs">🔊</button></td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-3 font-semibold text-slate-800">le footing</td>
+                                        <td class="p-3">chạy bộ</td>
+                                        <td class="p-3 text-xs text-slate-500">Thể thao</td>
+                                        <td class="p-3 text-center"><button onclick="speakFrench('le footing')" class="px-2 py-1 bg-slate-100 hover:bg-pastel-blueLight rounded text-xs">🔊</button></td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-3 font-semibold text-slate-800">la natation</td>
+                                        <td class="p-3">môn bơi lội</td>
+                                        <td class="p-3 text-xs text-slate-500">Thể thao</td>
+                                        <td class="p-3 text-center"><button onclick="speakFrench('la natation')" class="px-2 py-1 bg-slate-100 hover:bg-pastel-blueLight rounded text-xs">🔊</button></td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-3 font-semibold text-slate-800">d'abord</td>
+                                        <td class="p-3">trước tiên, đầu tiên</td>
+                                        <td class="p-3 text-xs text-slate-500">Từ nối thời gian</td>
+                                        <td class="p-3 text-center"><button onclick="speakFrench('d abord')" class="px-2 py-1 bg-slate-100 hover:bg-pastel-blueLight rounded text-xs">🔊</button></td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-3 font-semibold text-slate-800">ensuite / après / puis</td>
+                                        <td class="p-3">tiếp theo / sau đó / rồi thì</td>
+                                        <td class="p-3 text-xs text-slate-500">Từ nối thời gian</td>
+                                        <td class="p-3 text-center"><button onclick="speakFrench('ensuite')" class="px-2 py-1 bg-slate-100 hover:bg-pastel-blueLight rounded text-xs">🔊</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grammar Section Accordion -->
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                    <button onclick="toggleAccordion('l15-gram-acc')" class="w-full px-6 py-4 text-left font-bold text-lg text-slate-800 flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
+                        <span>🎓 2. Grammaire - Ngữ pháp trọng tâm Leçon 15</span>
+                        <span id="l15-gram-acc-icon" class="text-xl">▼</span>
+                    </button>
+                    <div id="l15-gram-acc" class="accordion-content p-6 border-t border-slate-200 space-y-8 open">
+                        
+                        <!-- Trọng tâm 1: LIRE & ÉCRIRE -->
+                        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                            <h4 class="text-base font-bold text-pastel-blueDark mb-3 flex items-center">
+                                <span class="w-3 h-3 rounded-full bg-pastel-blue inline-block mr-2"></span>
+                                Trọng tâm 1: Động từ bất quy tắc LIRE (Đọc) & ÉCRIRE (Viết)
+                            </h4>
+                            <p class="text-xs text-slate-600 mb-4">Hai động từ bất quy tắc cực kỳ phổ biến trong Leçon 15. Cần nhớ kỹ cách chia theo đại từ chủ ngữ.</p>
+                            
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <!-- Table LIRE -->
+                                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                    <h5 class="font-bold text-center text-slate-800 mb-2 border-b pb-1">LIRE (Đọc)</h5>
+                                    <table class="w-full text-xs text-left">
+                                        <tr class="border-b"><td class="py-1 font-semibold">Je</td><td>lis</td><td class="text-slate-400">Tôi đọc</td></tr>
+                                        <tr class="border-b"><td class="py-1 font-semibold">Tu</td><td>lis</td><td class="text-slate-400">Bạn đọc</td></tr>
+                                        <tr class="border-b"><td class="py-1 font-semibold">Il / Elle / On</td><td>lit</td><td class="text-slate-400">Anh/Cô ấy đọc</td></tr>
+                                        <tr class="border-b"><td class="py-1 font-semibold">Nous</td><td>lisons</td><td class="text-slate-400">Chúng tôi đọc</td></tr>
+                                        <tr class="border-b"><td class="py-1 font-semibold">Vous</td><td>lisez</td><td class="text-slate-400">Các bạn đọc</td></tr>
+                                        <tr><td class="py-1 font-semibold">Ils / Elles</td><td>lisent</td><td class="text-slate-400">Họ đọc</td></tr>
+                                    </table>
+                                </div>
+
+                                <!-- Table ÉCRIRE -->
+                                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                                    <h5 class="font-bold text-center text-slate-800 mb-2 border-b pb-1">ÉCRIRE (Viết)</h5>
+                                    <table class="w-full text-xs text-left">
+                                        <tr class="border-b"><td class="py-1 font-semibold">J'</td><td>écris</td><td class="text-slate-400">Tôi viết</td></tr>
+                                        <tr class="border-b"><td class="py-1 font-semibold">Tu</td><td>écris</td><td class="text-slate-400">Bạn viết</td></tr>
+                                        <tr class="border-b"><td class="py-1 font-semibold">Il / Elle / On</td><td>écrit</td><td class="text-slate-400">Anh/Cô ấy viết</td></tr>
+                                        <tr class="border-b"><td class="py-1 font-semibold">Nous</td><td>écrivons</td><td class="text-slate-400">Chúng tôi viết</td></tr>
+                                        <tr class="border-b"><td class="py-1 font-semibold">Vous</td><td>écrivez</td><td class="text-slate-400">Các bạn viết</td></tr>
+                                        <tr><td class="py-1 font-semibold">Ils / Elles</td><td>écrivent</td><td class="text-slate-400">Họ viết</td></tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Trọng tâm 2: VERBES PRONOMINAUX -->
+                        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                            <h4 class="text-base font-bold text-pastel-blueDark mb-3 flex items-center">
+                                <span class="w-3 h-3 rounded-full bg-pastel-blue inline-block mr-2"></span>
+                                Trọng tâm 2: Động từ phản thân (Les Verbes Pronominaux)
+                            </h4>
+                            <p class="text-xs text-slate-600 mb-3">Động từ phản thân diễn tả hành động mà chủ thể tự thực hiện lên chính bản thân mình. Luôn đi kèm đại từ phản thân tương ứng.</p>
+
+                            <!-- Table Pronoms -->
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 mb-4 overflow-x-auto">
+                                <table class="w-full text-xs text-center border-collapse">
+                                    <thead>
+                                        <tr class="bg-slate-100 text-slate-700 font-bold">
+                                            <th class="p-2 border">Chủ ngữ</th>
+                                            <th class="p-2 border">Je</th>
+                                            <th class="p-2 border">Tu</th>
+                                            <th class="p-2 border">Il / Elle / On</th>
+                                            <th class="p-2 border">Nous</th>
+                                            <th class="p-2 border">Vous</th>
+                                            <th class="p-2 border">Ils / Elles</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="p-2 border font-bold text-slate-600">Đại từ phản thân</td>
+                                            <td class="p-2 border text-pastel-orange font-bold">me (m')</td>
+                                            <td class="p-2 border text-pastel-orange font-bold">te (t')</td>
+                                            <td class="p-2 border text-pastel-orange font-bold">se (s')</td>
+                                            <td class="p-2 border text-pastel-orange font-bold">nous</td>
+                                            <td class="p-2 border text-pastel-orange font-bold">vous</td>
+                                            <td class="p-2 border text-pastel-orange font-bold">se (s')</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Formulas & Examples -->
+                            <div class="grid sm:grid-cols-2 gap-4 text-xs">
+                                <div class="bg-white p-4 rounded-xl border border-slate-200">
+                                    <h5 class="font-bold text-slate-800 mb-1">📌 Công thức Khẳng định & Phủ định:</h5>
+                                    <p class="mb-1"><span class="font-semibold text-blue-600">(+) Khẳng định:</span> S + Pronom + Verbe</p>
+                                    <p class="italic text-slate-500 mb-2">Ví dụ: Je me lève à 7h. (Tôi thức dậy lúc 7h)</p>
+                                    <p class="mb-1"><span class="font-semibold text-red-600">(-) Phủ định:</span> S + ne/n' + Pronom + Verbe + pas</p>
+                                    <p class="italic text-slate-500">Ví dụ: Je ne me lève pas tôt. (Tôi không thức dậy sớm)</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-slate-200">
+                                    <h5 class="font-bold text-slate-800 mb-1">⚠️ Phân biệt Động từ phản thân vs Động từ thường:</h5>
+                                    <p class="mb-1 text-slate-700"><strong>Je me lave.</strong> = Tôi tắm rửa (tự rửa bản thân).</p>
+                                    <p class="text-slate-700"><strong>Je lave la voiture.</strong> = Tôi rửa xe hơi (tác động lên đối tượng khác).</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Trọng tâm 3: FAIRE DE vs JOUER À -->
+                        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                            <h4 class="text-base font-bold text-pastel-blueDark mb-3 flex items-center">
+                                <span class="w-3 h-3 rounded-full bg-pastel-blue inline-block mr-2"></span>
+                                Trọng tâm 3: FAIRE DE và JOUER À + Môn thể thao
+                            </h4>
+                            <div class="grid sm:grid-cols-2 gap-4 text-xs">
+                                <div class="bg-white p-4 rounded-xl border border-slate-200">
+                                    <h5 class="font-bold text-pastel-blue text-sm mb-2">1. FAIRE DE (Dùng cho hầu hết môn thể thao/hoạt động)</h5>
+                                    <ul class="space-y-1 text-slate-700">
+                                        <li>• Faire <strong>du</strong> + danh từ giống đực (du football, du tennis)</li>
+                                        <li>• Faire <strong>de la</strong> + giống cái (de la natation)</li>
+                                        <li>• Faire <strong>de l'</strong> + nguyên âm/h câm (de l'athlétisme)</li>
+                                        <li>• Faire <strong>des</strong> + số nhiều (des exercices)</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-slate-200">
+                                    <h5 class="font-bold text-pastel-orange text-sm mb-2">2. JOUER À (Dùng cho môn đồng đội, đối kháng, bóng, cờ)</h5>
+                                    <ul class="space-y-1 text-slate-700">
+                                        <li>• Jouer <strong>au</strong> + danh từ giống đực (au football, au tennis)</li>
+                                        <li>• Jouer <strong>à la</strong> + giống cái (à la pétanque)</li>
+                                        <li>• Jouer <strong>aux</strong> + số nhiều (aux échecs)</li>
+                                        <li class="text-red-500 italic font-semibold">Không dùng Jouer à cho natation, athlétisme!</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Interactive Practice Leçon 15 -->
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800">📝 Bài tập thực hành Leçon 15</h3>
+                            <p class="text-xs text-slate-500">Hoàn thành bài tập để nhận phản hồi và chấm điểm tự động</p>
+                        </div>
+                        <span id="l15-quiz-score-badge" class="px-3 py-1 bg-slate-100 text-slate-700 font-bold text-xs rounded-full">Điểm: --/15</span>
+                    </div>
+
+                    <form id="l15-quiz-form" class="space-y-6">
+                        <!-- Questions Container -->
+                        <div id="l15-quiz-container" class="space-y-6 text-sm">
+                            <!-- Dynamic Content Inserted by JS -->
+                        </div>
+
+                        <div class="pt-4 border-t flex space-x-3">
+                            <button type="button" onclick="submitL15Quiz()" class="px-6 py-2.5 bg-pastel-blue hover:bg-pastel-blueDark text-white font-bold rounded-xl transition shadow-md">Nộp bài & Chấm điểm</button>
+                            <button type="button" onclick="resetL15Quiz()" class="px-4 py-2.5 bg-slate-100 text-slate-600 hover:bg-slate-200 font-semibold rounded-xl transition">Làm lại</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 3: LEÇON 16 ==================== -->
+        <section id="tab-lecon16" class="hidden space-y-8">
+            <!-- Header section -->
+            <div class="border-b border-slate-200 pb-5">
+                <span class="text-xs font-bold text-pastel-orange uppercase tracking-wider">Unité 4 - Le Nouveau Taxi! 1</span>
+                <h2 class="text-3xl font-extrabold text-slate-800 mt-1">Leçon 16 : Une journée avec Laure Manaudou</h2>
+                <p class="text-slate-600 mt-2 text-sm sm:text-base">Chủ đề: Một ngày cùng vận động viên Laure Manaudou - Đọc hiểu, từ nối trình tự & Luyện viết.</p>
+            </div>
+
+            <!-- Reading Section -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6">
+                <div class="flex flex-wrap justify-between items-center gap-4 border-b pb-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800">📰 Compréhension écrite (Đọc hiểu bài báo A1)</h3>
+                        <p class="text-xs text-slate-500">Đọc lịch sinh hoạt của nhà vô địch bơi lội Laure Manaudou</p>
+                    </div>
+                    <button onclick="toggleTranslation()" id="trans-btn" class="px-4 py-2 bg-pastel-orangeLight text-pastel-orange hover:bg-pastel-orange hover:text-white font-bold text-xs rounded-xl transition flex items-center space-x-2">
+                        <span>🌐</span>
+                        <span>Hiện bản dịch tiếng Việt</span>
+                    </button>
+                </div>
+
+                <!-- Text Box -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 leading-relaxed text-sm space-y-4">
+                    <div class="font-semibold text-base text-pastel-blueDark">Une journée habituelle de Laure Manaudou (Championne de natation)</div>
+                    <p class="text-slate-700">
+                        Laure Manaudou est une grande championne de natation. Sa journée commence très tôt. <span class="font-bold text-pastel-blue">D'abord</span>, elle se lève à six heures du matin. Elle prend un petit déjeuner complet : du jus d'orange, des céréales et un yaourt. 
+                    </p>
+                    <p class="text-slate-700">
+                        <span class="font-bold text-pastel-blue">Ensuite</span>, à sept heures, elle va à la piscine pour le premier entraînement de la journée. Elle nage pendant deux heures. À midi, elle déjeune avec sa famille ou ses amis.
+                    </p>
+                    <p class="text-slate-700">
+                        <span class="font-bold text-pastel-blue">L'après-midi</span>, après un peu de repos, elle reprend l'entraînement à seize heures. <span class="font-bold text-pastel-blue">Puis</span>, le soir, elle se détend à la maison, lit un livre ou écoute de la musique. 
+                    </p>
+                    <p class="text-slate-700">
+                        <span class="font-bold text-pastel-blue">Enfin</span>, elle se couche vers vingt-deux heures để chuẩn bị cho ngày tiếp theo.
+                    </p>
+
+                    <!-- Hidden Translation Box -->
+                    <div id="translation-box" class="hidden mt-4 pt-4 border-t border-slate-300 text-xs text-slate-600 bg-white p-4 rounded-xl italic">
+                        <div class="font-bold text-slate-800 mb-1 uppercase text-[10px] tracking-wider not-italic">Bản dịch Tiếng Việt:</div>
+                        Laure Manaudou là một nhà vô địch bơi lội lớn. Ngày của cô ấy bắt đầu từ rất sớm. Đầu tiên, cô thức dậy lúc 6 giờ sáng. Cô ăn sáng đầy đủ: nước cam, ngũ cốc và sữa chua. Tiếp theo, lúc 7 giờ, cô đến bể bơi cho buổi tập đầu tiên trong ngày. Cô bơi trong 2 tiếng. Vào buổi trưa, cô ăn trưa cùng gia đình hoặc bạn bè. Buổi chiều, sau khi nghỉ ngơi một chút, cô tiếp tục tập luyện lúc 16 giờ. Sau đó, vào buổi tối, cô thư giãn ở nhà, đọc sách hoặc nghe nhạc. Cuối cùng, cô đi ngủ vào khoảng 22 giờ.
+                    </div>
+                </div>
+
+                <!-- Reading Questions -->
+                <div class="space-y-4 pt-2">
+                    <h4 class="font-bold text-slate-800 text-sm">Câu hỏi kiểm tra đọc hiểu:</h4>
+                    <div class="grid sm:grid-cols-2 gap-4 text-xs">
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                            <p class="font-semibold text-slate-800">1. À quelle heure Laure se lève-t-elle ?</p>
+                            <label class="block"><input type="radio" name="rq1" value="A"> A. À 7h00</label>
+                            <label class="block"><input type="radio" name="rq1" value="B"> B. À 6h00</label>
+                            <label class="block"><input type="radio" name="rq1" value="C"> C. À 8h00</label>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                            <p class="font-semibold text-slate-800">2. Qu'est-ce qu'elle fait le soir ?</p>
+                            <label class="block"><input type="radio" name="rq2" value="A"> A. Elle s'entraîne</label>
+                            <label class="block"><input type="radio" name="rq2" value="B"> B. Elle fait les courses</label>
+                            <label class="block"><input type="radio" name="rq2" value="C"> C. Elle se détend et lit un livre</label>
+                        </div>
+                    </div>
+                    <button onclick="checkReadingAnswers()" class="px-4 py-2 bg-slate-800 hover:bg-black text-white text-xs font-bold rounded-xl transition">Kiểm tra đáp án đọc hiểu</button>
+                    <div id="reading-feedback" class="text-xs font-semibold"></div>
+                </div>
+            </div>
+
+            <!-- Production Écrite Section -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800">✍️ Production écrite (Luyện viết đoạn văn A1)</h3>
+                    <p class="text-xs text-slate-500">Mô tả lịch sinh hoạt ngày Chủ nhật của bản thân (Mon dimanche matin)</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 text-xs">
+                    <!-- Helper Box -->
+                    <div class="bg-pastel-blueLight/50 p-5 rounded-2xl border border-pastel-blue/20 space-y-3">
+                        <h4 class="font-bold text-pastel-blueDark text-sm">💡 Từ nối & Cấu trúc gợi ý:</h4>
+                        <ul class="space-y-1.5 text-slate-700">
+                            <li>• <strong>Từ nối trình tự:</strong> D'abord, Ensuite, Puis, Après, Enfin.</li>
+                            <li>• <strong>Thời gian:</strong> Le matin, à 8h, l'après-midi, le soir.</li>
+                            <li>• <strong>Động từ phản thân:</strong> je me lève, je me lave, je me repose...</li>
+                            <li>• <strong>Thể thao:</strong> je fais du footing / je joue au football.</li>
+                        </ul>
+                        <div class="pt-2 border-t border-slate-200">
+                            <span class="font-bold text-slate-800">Đoạn văn mẫu A1:</span>
+                            <p class="italic text-slate-600 mt-1">"Le dimanche matin, je me lève à 8h. D'abord, je prends mon petit déjeuner. Ensuite, je fais du footing dans le parc. L'après-midi, je me repose et je lis un livre. Le soir, je me couche à 22h."</p>
+                        </div>
+                    </div>
+
+                    <!-- Writing Area & Checklist -->
+                    <div class="space-y-4">
+                        <textarea id="user-writing-input" rows="6" placeholder="Viết đoạn văn 4-6 câu bằng tiếng Pháp tại đây..." class="w-full p-3 border border-slate-300 rounded-xl focus:outline-none focus:border-pastel-orange text-xs leading-relaxed"></textarea>
+                        
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1.5">
+                            <span class="font-bold text-slate-700 block mb-1">Checklist tự kiểm tra bài viết:</span>
+                            <label class="flex items-center space-x-2"><input type="checkbox"> <span>Đã dùng động từ phản thân (je me lève...)</span></label>
+                            <label class="flex items-center space-x-2"><input type="checkbox"> <span>Đã chia đúng faire du / jouer au + thể thao</span></label>
+                            <label class="flex items-center space-x-2"><input type="checkbox"> <span>Sử dụng ít nhất 2 từ nối (d'abord, ensuite...)</span></label>
+                        </div>
+
+                        <button onclick="saveUserWriting()" class="w-full py-2 bg-pastel-orange text-white font-bold rounded-xl hover:bg-pastel-orangeDark transition">Lưu bài viết vào tiến độ</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 4: BÀI KIỂM TRA TỔNG HỢP (40 CÂU) ==================== -->
+        <section id="tab-test" class="hidden space-y-8">
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+                <!-- Test Intro & Timer Header -->
+                <div class="flex flex-wrap justify-between items-center gap-4 border-b pb-5">
+                    <div>
+                        <span class="px-3 py-1 bg-red-100 text-red-600 text-xs font-bold rounded-full">BÀI KIỂM TRA ĐÁNH GIÁ A1</span>
+                        <h2 class="text-2xl font-extrabold text-slate-800 mt-1">Test Général - Leçon 15 & 16 (40 Câu)</h2>
+                        <p class="text-xs text-slate-500 mt-1">Cấu trúc: 8 câu Lire/Écrire | 16 câu Động từ phản thân | 8 câu Faire/Jouer | 8 câu Từ vựng & Đọc hiểu</p>
+                    </div>
+                    
+                    <div id="test-timer-card" class="flex items-center space-x-3 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-md">
+                        <span class="text-xl">⏱️</span>
+                        <div>
+                            <div class="text-[10px] text-slate-400 font-bold uppercase">Thời gian còn lại</div>
+                            <div id="test-timer-text" class="text-lg font-mono font-bold text-pastel-orange">30:00</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Test Form & Questions -->
+                <form id="general-test-form" class="mt-6 space-y-8">
+                    <div id="general-test-questions" class="space-y-6">
+                        <!-- 40 Questions loaded dynamically via JS -->
+                    </div>
+
+                    <!-- Submit Area -->
+                    <div class="pt-6 border-t flex flex-wrap items-center justify-between gap-4">
+                        <button type="button" onclick="submitGeneralTest()" class="px-8 py-3 bg-pastel-orange hover:bg-pastel-orangeDark text-white font-bold text-base rounded-xl shadow-lg transition transform hover:-translate-y-0.5">Nộp bài & Chấm điểm</button>
+                        <span class="text-xs text-slate-500 italic">* Hệ thống sẽ tự động chấm điểm theo thang điểm 10 và lưu kết quả.</span>
+                    </div>
+                </form>
+
+                <!-- Test Result Modal / Section (Hidden initially) -->
+                <div id="test-result-box" class="hidden mt-8 p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-6">
+                    <div class="text-center space-y-2">
+                        <h3 class="text-2xl font-bold text-slate-800">Kết Quả Bài Kiểm Tra</h3>
+                        <div id="test-score-display" class="text-5xl font-extrabold text-pastel-blue">0 / 10</div>
+                        <p id="test-feedback-text" class="text-sm font-semibold text-slate-600">Bạn đã hoàn thành bài kiểm tra!</p>
+                    </div>
+
+                    <!-- Detail breakdown -->
+                    <div id="test-detail-breakdown" class="space-y-4 text-xs">
+                        <!-- Explanations inserted dynamically -->
+                    </div>
+
+                    <div class="text-center pt-4">
+                        <button onclick="resetGeneralTest()" class="px-6 py-2.5 bg-slate-800 text-white text-xs font-bold rounded-xl hover:bg-black transition">Làm lại bài kiểm tra mới</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 5: TIẾN ĐỘ & LỊCH SỬ (PROGRESS) ==================== -->
+        <section id="tab-progress" class="hidden space-y-8">
+            <div class="border-b border-slate-200 pb-5">
+                <h2 class="text-3xl font-extrabold text-slate-800">Tiến độ & Lịch sử học tập</h2>
+                <p class="text-slate-600 mt-1 text-sm">Theo dõi quá trình rèn luyện ngữ pháp và kết quả làm bài của bạn.</p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid sm:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm text-center">
+                    <div class="text-xs font-bold text-slate-400 uppercase">Hoàn thành khóa học</div>
+                    <div id="prog-total-percent" class="text-4xl font-extrabold text-pastel-blue mt-2">0%</div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm text-center">
+                    <div class="text-xs font-bold text-slate-400 uppercase">Điểm Test cao nhất</div>
+                    <div id="prog-best-score" class="text-4xl font-extrabold text-pastel-orange mt-2">-- / 10</div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm text-center">
+                    <div class="text-xs font-bold text-slate-400 uppercase">Số lần làm bài test</div>
+                    <div id="prog-test-count" class="text-4xl font-extrabold text-slate-800 mt-2">0</div>
+                </div>
+            </div>
+
+            <!-- Test History Table -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+                <h3 class="text-lg font-bold text-slate-800">📜 Lịch sử kiểm tra gần đây</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-600 border-b">
+                                <th class="p-3">Thời gian</th>
+                                <th class="p-3">Điểm số (Thang 10)</th>
+                                <th class="p-3">Số câu đúng</th>
+                                <th class="p-3">Đánh giá</th>
+                            </tr>
+                        </thead>
+                        <tbody id="test-history-tbody" class="divide-y divide-slate-100">
+                            <tr><td colspan="4" class="p-4 text-center text-slate-400 italic">Chưa có lịch sử làm bài.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Reset Data Button -->
+            <div class="text-right">
+                <button onclick="clearAllData()" class="px-4 py-2 bg-red-50 text-red-600 hover:bg-red-100 text-xs font-bold rounded-xl transition border border-red-200">🗑️ Xóa toàn bộ dữ liệu học tập</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
+            <p>Ứng dụng Học Tiếng Pháp A1 - Le Nouveau Taxi! 1 (Leçon 15 & 16)</p>
+            <p class="mt-1">Tối ưu cho Tự học Ngữ pháp & Luyện tập Tương tác</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* ==================== GLOBAL APP STATE ==================== */
+        const APP_STORAGE_KEY = 'french_a1_taxi_data';
+        let appData = {
+            l15Completed: false,
+            l16Completed: false,
+            l15QuizScore: 0,
+            testHistory: [],
+            savedWriting: ""
+        };
+
+        let timerInterval = null;
+        let timerSeconds = 1800; // 30 minutes
+
+        /* ==================== LEÇON 15 QUIZ QUESTIONS DATA ==================== */
+        const l15QuestionsData = [
+            { id: 1, type: 'mc', q: "1. Je ______ un libro le soir. (lire)", options: ["A. lis", "B. lit", "C. lisez"], ans: "A", exp: "Động từ LIRE chia ở ngôi 'Je' là 'lis'." },
+            { id: 2, type: 'mc', q: "2. Nous ______ des lettres. (écrire)", options: ["A. écris", "B. écrit", "C. écrivons"], ans: "C", exp: "Động từ ÉCRIRE chia ở ngôi 'Nous' là 'écrivons'." },
+            { id: 3, type: 'mc', q: "3. Elle ______ à sept heures. (se lever)", options: ["A. me lève", "B. se lève", "C. te lèves"], ans: "B", exp: "Động từ phản thân se lever đi với 'Elle' là 'se lève'." },
+            { id: 4, type: 'mc', q: "4. Nous ______ le dimanche matin.", options: ["A. nous reposons", "B. se reposons", "C. vous reposer"], ans: "A", exp: "Đại từ phản thân của 'Nous' là 'nous' -> Nous nous reposons." },
+            { id: 5, type: 'mc', q: "5. Je fais ______ natation.", options: ["A. du", "B. de la", "C. au"], ans: "B", exp: "Natation là danh từ giống cái -> faire de la natation." },
+            { id: 6, type: 'mc', q: "6. Il joue ______ football.", options: ["A. du", "B. au", "C. à la"], ans: "B", exp: "Football đi với động từ Jouer dùng 'au' (à + le = au)." },
+            { id: 7, type: 'mc', q: "7. Câu phủ định đúng của 'Je me lève tôt':", options: ["A. Je ne me lève pas tôt.", "B. Je me lève pas tôt.", "C. Je ne lève pas me tôt."], ans: "A", exp: "Công thức phủ định: S + ne + pronom + verbe + pas." },
+            { id: 8, type: 'mc', q: "8. Tu ______ un message à ton ami. (écrire)", options: ["A. viết", "B. écris", "C. écrit"], ans: "B", exp: "Tu écris." },
+            { id: 9, type: 'mc', q: "9. Ils ______ de l'athlétisme.", options: ["A. font", "B. jouent", "C. lisez"], ans: "A", exp: "Athlétisme đi với động từ Faire (Ils font de l'athlétisme)." },
+            { id: 10, type: 'mc', q: "10. Vous ______ à quelle heure ?", options: ["A. vous couchez", "B. se couchez", "C. nous couchons"], ans: "A", exp: "Vous vous couchez." }
+        ];
+
+        /* ==================== 40 GENERAL TEST QUESTIONS DATA ==================== */
+        const test40Questions = [
+            // 8 câu LIRE & ÉCRIRE
+            { q: "1. Je _____ un journal le matin.", opts: ["A. lis", "B. lit", "C. lisez", "D. lisons"], ans: "A", category: "LIRE & ÉCRIRE", exp: "Je + lis." },
+            { q: "2. Nous _____ des cartes postales.", opts: ["A. écris", "B. écrit", "C. écrivons", "D. écrivent"], ans: "C", category: "LIRE & ÉCRIRE", exp: "Nous + écrivons." },
+            { q: "3. Elle _____ une lettre à sa mère.", opts: ["A. écris", "B. écrit", "C. écrivons", "D. écrivez"], ans: "B", category: "LIRE & ÉCRIRE", exp: "Elle + écrit." },
+            { q: "4. Vous _____ des magazines français ?", opts: ["A. lis", "B. lit", "C. lisez", "D. lisent"], ans: "C", category: "LIRE & ÉCRIRE", exp: "Vous + lisez." },
+            { q: "5. Ils _____ un livre intéressant.", opts: ["A. lis", "B. lit", "C. lisons", "D. lisent"], ans: "D", category: "LIRE & ÉCRIRE", exp: "Ils + lisent." },
+            { q: "6. Tu _____ un SMS à ton ami.", opts: ["A. écris", "B. écrit", "C. écrivons", "D. écrivez"], ans: "A", category: "LIRE & ÉCRIRE", exp: "Tu + écris." },
+            { q: "7. On _____ le journal le dimanche.", opts: ["A. lis", "B. lit", "C. lisons", "D. lisez"], ans: "B", category: "LIRE & ÉCRIRE", exp: "On chia giống Il/Elle -> lit." },
+            { q: "8. Elles _____ des poèmes.", opts: ["A. écris", "B. écrit", "C. écrivent", "D. écrivons"], ans: "C", category: "LIRE & ÉCRIRE", exp: "Elles + écrivent." },
+
+            // 16 câu Động từ phản thân
+            { q: "9. Je _____ lève à six heures.", opts: ["A. me", "B. te", "C. se", "D. nous"], ans: "A", category: "PRONOMINAUX", exp: "Je me lève." },
+            { q: "10. Nous _____ reposons après le travail.", opts: ["A. me", "B. se", "C. nous", "D. vous"], ans: "C", category: "PRONOMINAUX", exp: "Nous nous reposons." },
+            { q: "11. Elle _____ lave avant de manger.", opts: ["A. me", "B. te", "C. se", "D. vous"], ans: "C", category: "PRONOMINAUX", exp: "Elle se lave." },
+            { q: "12. Tu _____ habilles rapidement.", opts: ["A. m'", "B. t'", "C. s'", "D. nous"], ans: "B", category: "PRONOMINAUX", exp: "Tu t'habilles." },
+            { q: "13. Vous _____ couchez tard le week-end ?", opts: ["A. me", "B. te", "C. nous", "D. vous"], ans: "D", category: "PRONOMINAUX", exp: "Vous vous couchez." },
+            { q: "14. Ils _____ promènent dans le parc.", opts: ["A. se", "B. nous", "C. vous", "D. me"], ans: "A", category: "PRONOMINAUX", exp: "Ils se promènent." },
+            { q: "15. Je ne _____ lève pas tôt le dimanche.", opts: ["A. me", "B. te", "C. se", "D. pas"], ans: "A", category: "PRONOMINAUX", exp: "Dạng phủ định: Je ne me lève pas." },
+            { q: "16. Elle ne _____ couche pas à 20h.", opts: ["A. me", "B. te", "C. se", "D. nous"], ans: "C", category: "PRONOMINAUX", exp: "Elle ne se couche pas." },
+            { q: "17. _____ tu te lèves tôt ?", opts: ["A. Est-ce que", "B. Qu'est-ce que", "C. Quel", "D. Qui"], ans: "A", category: "PRONOMINAUX", exp: "Câu hỏi Yes/No dùng Est-ce que." },
+            { q: "18. Les enfants _____ réveillent à 7h.", opts: ["A. se", "B. me", "C. nous", "D. te"], ans: "A", category: "PRONOMINAUX", exp: "Les enfants (Ils) se réveillent." },
+            { q: "19. Chọn câu ĐÚNG ngữ pháp:", opts: ["A. Je se lève.", "B. Je me lève.", "C. Je lève me.", "D. Me je lève."], ans: "B", category: "PRONOMINAUX", exp: "Cấu trúc đúng: Je me lève." },
+            { q: "20. Je lave la voiture (Không phản thân) vs Je me lave (Phản thân). Chọn nghĩa 'Je me lave':", opts: ["A. Tôi rửa xe", "B. Tôi tắm rửa", "C. Tôi rửa bát", "D. Tôi lau nhà"], ans: "B", category: "PRONOMINAUX", exp: "Je me lave = Tôi tự tắm rửa." },
+            { q: "21. Nous ne _____ promenons pas le soir.", opts: ["A. se", "B. vous", "C. nous", "D. me"], ans: "C", category: "PRONOMINAUX", exp: "Nous ne nous promenons pas." },
+            { q: "22. Tu _____ détends après le sport ?", opts: ["A. me", "B. te", "C. se", "D. nous"], ans: "B", category: "PRONOMINAUX", exp: "Tu te détends." },
+            { q: "23. Marc et Paul _____ entraînent tous les jours.", opts: ["A. s'", "B. m'", "C. t'", "D. nous"], ans: "A", category: "PRONOMINAUX", exp: "Marc et Paul (Ils) s'entraînent." },
+            { q: "24. Cụm từ nào nghĩa là 'thức dậy'?", opts: ["A. se coucher", "B. se lever", "C. se reposer", "D. s'habiller"], ans: "B", category: "PRONOMINAUX", exp: "Se lever = thức dậy." },
+
+            // 8 câu FAIRE DE vs JOUER À
+            { q: "25. Je fais _____ natation.", opts: ["A. du", "B. de la", "C. au", "D. aux"], ans: "B", category: "FAIRE vs JOUER", exp: "Faire + de la natation (giống cái)." },
+            { q: "26. Il joue _____ football.", opts: ["A. du", "B. de la", "C. au", "D. aux"], ans: "C", category: "FAIRE vs JOUER", exp: "Jouer + au football (à + le = au)." },
+            { q: "27. Nous faisons _____ athlétisme.", opts: ["A. du", "B. de l'", "C. de la", "D. aux"], ans: "B", category: "FAIRE vs JOUER", exp: "Athlétisme bắt đầu bằng nguyên âm -> de l'." },
+            { q: "28. Vous jouez _____ échecs (cờ vua).", opts: ["A. au", "B. à la", "C. aux", "D. du"], ans: "C", category: "FAIRE vs JOUER", exp: "Échecs là số nhiều -> aux échecs." },
+            { q: "29. Tu fais _____ footing ?", opts: ["A. du", "B. de la", "C. au", "D. à la"], ans: "A", category: "FAIRE vs JOUER", exp: "Faire du footing." },
+            { q: "30. Elle joue _____ tennis.", opts: ["A. du", "B. au", "C. de la", "D. aux"], ans: "B", category: "FAIRE vs JOUER", exp: "Jouer au tennis." },
+            { q: "31. Môn nào KHÔNG dùng với 'Jouer à'?", opts: ["A. football", "B. tennis", "C. natation", "D. basket"], ans: "C", category: "FAIRE vs JOUER", exp: "Natation (bơi lội) chỉ dùng Faire de la natation." },
+            { q: "32. Mes amis font _____ gymnastique.", opts: ["A. de la", "B. du", "C. au", "D. aux"], ans: "A", category: "FAIRE vs JOUER", exp: "Faire de la gymnastique." },
+
+            // 8 câu Từ vựng & Đọc hiểu
+            { q: "33. 'D'abord' có nghĩa là gì?", opts: ["A. Cuối cùng", "B. Tiếp theo", "C. Đầu tiên", "D. Sau đó"], ans: "C", category: "VOCAB & COMPRÉHENSION", exp: "D'abord = Trước tiên, đầu tiên." },
+            { q: "34. Từ nào mang nghĩa 'làm việc nhà'?", opts: ["A. faire les courses", "B. faire le ménage", "C. faire du sport", "D. se reposer"], ans: "B", category: "VOCAB & COMPRÉHENSION", exp: "Faire le ménage = làm việc nhà." },
+            { q: "35. 'Le soir' là thời điểm nào?", opts: ["A. Buổi sáng", "B. Buổi trưa", "C. Buổi chiều", "D. Buổi tối"], ans: "D", category: "VOCAB & COMPRÉHENSION", exp: "Le soir = buổi tối." },
+            { q: "36. Laure Manaudou làm nghề gì?", opts: ["A. Giáo viên", "B. Vận động viên bơi lội", "C. Ca sĩ", "D. Bác sĩ"], ans: "B", category: "VOCAB & COMPRÉHENSION", exp: "Laure Manaudou est une championne de natation." },
+            { q: "37. Từ nào nối ý 'Cuối cùng'?", opts: ["A. Ensuite", "B. Puis", "C. Enfin", "D. D'abord"], ans: "C", category: "VOCAB & COMPRÉHENSION", exp: "Enfin = Cuối cùng." },
+            { q: "38. 'Se détendre' đồng nghĩa với:", opts: ["A. se lever", "B. se relaxer", "C. travailler", "D. courir"], ans: "B", category: "VOCAB & COMPRÉHENSION", exp: "Se détendre = se relaxer (thư giãn)." },
+            { q: "39. Lịch sinh hoạt của Laure Manaudou bắt đầu lúc mấy giờ?", opts: ["A. 5h", "B. 6h", "C. 7h", "D. 8h"], ans: "B", category: "VOCAB & COMPRÉHENSION", exp: "Elle se lève à six heures du matin." },
+            { q: "40. 'Faire les courses' nghĩa là gì?", opts: ["A. Chạy đua", "B. Đi mua sắm đồ dùng/thực phẩm", "C. Tập thể dục", "D. Đi làm"], ans: "B", category: "VOCAB & COMPRÉHENSION", exp: "Faire les courses = đi mua sắm thực phẩm." }
+        ];
+
+        /* ==================== INITIALIZATION ==================== */
+        window.onload = function() {
+            loadStorageData();
+            renderL15Quiz();
+            renderGeneralTest();
+            updateGlobalProgress();
+        };
+
+        /* LocalStorage Helpers */
+        function loadStorageData() {
+            const saved = localStorage.getItem(APP_STORAGE_KEY);
+            if (saved) {
+                try {
+                    appData = JSON.parse(saved);
+                    if (appData.savedWriting) {
+                        document.getElementById('user-writing-input').value = appData.savedWriting;
+                    }
+                } catch(e) {
+                    console.error("Error loading stored data", e);
+                }
+            }
+        }
+
+        function saveStorageData() {
+            localStorage.setItem(APP_STORAGE_KEY, JSON.stringify(appData));
+            updateGlobalProgress();
+        }
+
+        /* Navigation Tab Switching */
+        function switchTab(tabId) {
+            const tabs = ['home', 'lecon15', 'lecon16', 'test', 'progress'];
+            tabs.forEach(t => {
+                const el = document.getElementById(`tab-${t}`);
+                const navBtn = document.getElementById(`nav-${t}`);
+                if (t === tabId) {
+                    el.classList.remove('hidden');
+                    if (navBtn) navBtn.classList.add('active');
+                } else {
+                    el.classList.add('hidden');
+                    if (navBtn) navBtn.classList.remove('active');
+                }
+            });
+
+            // Timer management for Test Tab
+            if (tabId === 'test') {
+                startTestTimer();
+            } else {
+                pauseTestTimer();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function toggleAccordion(accId) {
+            const content = document.getElementById(accId);
+            const icon = document.getElementById(`${accId}-icon`);
+            content.classList.toggle('open');
+            if (icon) {
+                icon.textContent = content.classList.contains('open') ? '▲' : '▼';
+            }
+        }
+
+        /* Web Speech API TTS */
+        function speakFrench(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'fr-FR';
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Trình duyệt của bạn không hỗ trợ tính năng phát âm giọng nói.");
+            }
+        }
+
+        /* Filter Vocabulary */
+        function filterVocab(inputId, tableId) {
+            const term = document.getElementById(inputId).value.toLowerCase();
+            const rows = document.querySelectorAll(`#${tableId} tbody tr`);
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(term) ? '' : 'none';
+            });
+        }
+
+        /* Toggle Translation Leçon 16 */
+        function toggleTranslation() {
+            const box = document.getElementById('translation-box');
+            const btn = document.getElementById('trans-btn');
+            box.classList.toggle('hidden');
+            if (box.classList.contains('hidden')) {
+                btn.innerHTML = '<span>🌐</span> <span>Hiện bản dịch tiếng Việt</span>';
+            } else {
+                btn.innerHTML = '<span>🙈</span> <span>Ẩn bản dịch tiếng Việt</span>';
+            }
+        }
+
+        /* Render & Handle Leçon 15 Interactive Quiz */
+        function renderL15Quiz() {
+            const container = document.getElementById('l15-quiz-container');
+            container.innerHTML = l15QuestionsData.map((q, idx) => `
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                    <p class="font-semibold text-slate-800">${q.q}</p>
+                    <div class="grid sm:grid-cols-3 gap-2 pl-2">
+                        ${q.options.map(opt => `
+                            <label class="flex items-center space-x-2 cursor-pointer text-xs">
+                                <input type="radio" name="l15_q_${q.id}" value="${opt.charAt(0)}" class="text-pastel-blue">
+                                <span>${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                    <div id="l15_exp_${q.id}" class="hidden text-xs mt-2 p-2 rounded bg-white border border-slate-200 text-slate-600"></div>
+                </div>
+            `).join('');
+        }
+
+        function submitL15Quiz() {
+            let score = 0;
+            l15QuestionsData.forEach(q => {
+                const selected = document.querySelector(`input[name="l15_q_${q.id}"]:checked`);
+                const expBox = document.getElementById(`l15_exp_${q.id}`);
+                expBox.classList.remove('hidden');
+
+                if (selected && selected.value === q.ans) {
+                    score++;
+                    expBox.className = "text-xs mt-2 p-2 rounded bg-green-50 border border-green-200 text-green-700 font-medium";
+                    expBox.innerHTML = `✓ Chính xác! ${q.exp}`;
+                } else {
+                    expBox.className = "text-xs mt-2 p-2 rounded bg-red-50 border border-red-200 text-red-700 font-medium";
+                    expBox.innerHTML = `✗ Chưa đúng. Đáp án là ${q.ans}. ${q.exp}`;
+                }
+            });
+
+            document.getElementById('l15-quiz-score-badge').textContent = `Điểm: ${score}/${l15QuestionsData.length}`;
+            appData.l15QuizScore = score;
+            appData.l15Completed = true;
+            saveStorageData();
+        }
+
+        function resetL15Quiz() {
+            document.getElementById('l15-quiz-form').reset();
+            l15QuestionsData.forEach(q => {
+                const expBox = document.getElementById(`l15_exp_${q.id}`);
+                expBox.classList.add('hidden');
+            });
+            document.getElementById('l15-quiz-score-badge').textContent = `Điểm: --/15`;
+        }
+
+        /* Reading Answers Check */
+        function checkReadingAnswers() {
+            const q1 = document.querySelector('input[name="rq1"]:checked');
+            const q2 = document.querySelector('input[name="rq2"]:checked');
+            const fb = document.getElementById('reading-feedback');
+
+            if (!q1 || !q2) {
+                fb.className = "text-xs font-semibold text-pastel-orange";
+                fb.textContent = "Vui lòng chọn đáp án cho cả 2 câu hỏi.";
+                return;
+            }
+
+            let correct = 0;
+            if (q1.value === 'B') correct++;
+            if (q2.value === 'C') correct++;
+
+            if (correct === 2) {
+                fb.className = "text-xs font-semibold text-green-600";
+                fb.textContent = "✓ Tuyệt vời! Bạn đã trả lời đúng cả 2 câu đọc hiểu.";
+                appData.l16Completed = true;
+                saveStorageData();
+            } else {
+                fb.className = "text-xs font-semibold text-red-500";
+                fb.textContent = `Bạn trả lời đúng ${correct}/2 câu. Hãy thử xem lại bài đọc nhé!`;
+            }
+        }
+
+        /* Save Writing */
+        function saveUserWriting() {
+            const text = document.getElementById('user-writing-input').value;
+            appData.savedWriting = text;
+            saveStorageData();
+            alert("Đã lưu bài viết của bạn vào bộ nhớ!");
+        }
+
+        /* General Test 40 Questions Logic */
+        function renderGeneralTest() {
+            const container = document.getElementById('general-test-questions');
+            container.innerHTML = test40Questions.map((q, idx) => `
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                    <div class="flex justify-between items-start">
+                        <span class="font-bold text-slate-800 text-sm">${q.q}</span>
+                        <span class="px-2 py-0.5 bg-slate-200 text-slate-600 text-[10px] font-semibold rounded">${q.category}</span>
+                    </div>
+                    <div class="grid sm:grid-cols-2 gap-2 text-xs">
+                        ${q.opts.map(opt => `
+                            <label class="flex items-center space-x-2 cursor-pointer p-2 bg-white rounded border border-slate-200 hover:bg-slate-100">
+                                <input type="radio" name="gt_q_${idx}" value="${opt.charAt(0)}" class="text-pastel-orange">
+                                <span>${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function startTestTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(() => {
+                timerSeconds--;
+                const min = Math.floor(timerSeconds / 60);
+                const sec = timerSeconds % 60;
+                document.getElementById('test-timer-text').textContent = 
+                    `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+
+                if (timerSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    alert("Hết giờ làm bài! Hệ thống sẽ nộp bài tự động.");
+                    submitGeneralTest();
+                }
+            }, 1000);
+        }
+
+        function pauseTestTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        function submitGeneralTest() {
+            pauseTestTimer();
+            let correctCount = 0;
+            const breakdownContainer = document.getElementById('test-detail-breakdown');
+            breakdownContainer.innerHTML = '';
+
+            test40Questions.forEach((q, idx) => {
+                const selected = document.querySelector(`input[name="gt_q_${idx}"]:checked`);
+                const isCorrect = selected && selected.value === q.ans;
+                if (isCorrect) correctCount++;
+
+                const detailDiv = document.createElement('div');
+                detailDiv.className = `p-3 rounded-xl border ${isCorrect ? 'bg-green-50 border-green-200 text-green-800' : 'bg-red-50 border-red-200 text-red-800'}`;
+                detailDiv.innerHTML = `
+                    <div class="font-bold">${idx + 1}. ${q.q}</div>
+                    <div class="mt-1">Lựa chọn của bạn: ${selected ? selected.value : 'Bỏ trống'} | <strong>Đáp án đúng: ${q.ans}</strong></div>
+                    <div class="italic text-[11px] mt-0.5 text-slate-600">Giải thích: ${q.exp}</div>
+                `;
+                breakdownContainer.appendChild(detailDiv);
+            });
+
+            // Score out of 10
+            const score10 = ((correctCount / 40) * 10).toFixed(1);
+            document.getElementById('test-score-display').textContent = `${score10} / 10`;
+            document.getElementById('test-feedback-text').textContent = `Bạn làm đúng ${correctCount}/40 câu hỏi.`;
+
+            document.getElementById('test-result-box').classList.remove('hidden');
+            window.scrollTo({ top: document.getElementById('test-result-box').offsetTop - 50, behavior: 'smooth' });
+
+            // Record to history
+            const historyItem = {
+                date: new Date().toLocaleString('vi-VN'),
+                score: score10,
+                correct: `${correctCount}/40`
+            };
+            appData.testHistory.unshift(historyItem);
+            saveStorageData();
+            updateHistoryTable();
+        }
+
+        function resetGeneralTest() {
+            document.getElementById('general-test-form').reset();
+            document.getElementById('test-result-box').classList.add('hidden');
+            timerSeconds = 1800;
+            startTestTimer();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* Update Global Progress & UI */
+        function updateGlobalProgress() {
+            let completedUnits = 0;
+            if (appData.l15Completed) completedUnits += 40;
+            if (appData.l16Completed) completedUnits += 40;
+            if (appData.testHistory.length > 0) completedUnits += 20;
+
+            const totalPercent = Math.min(100, completedUnits);
+            document.getElementById('global-progress-bar').style.width = `${totalPercent}%`;
+            document.getElementById('global-progress-text').textContent = `${totalPercent}%`;
+
+            document.getElementById('home-l15-progress').textContent = `Hoàn thành: ${appData.l15Completed ? '100%' : '0%'}`;
+            document.getElementById('home-l16-progress').textContent = `Hoàn thành: ${appData.l16Completed ? '100%' : '0%'}`;
+            document.getElementById('prog-total-percent').textContent = `${totalPercent}%`;
+
+            if (appData.testHistory.length > 0) {
+                const best = Math.max(...appData.testHistory.map(h => parseFloat(h.score)));
+                document.getElementById('home-best-score').textContent = `${best} / 10`;
+                document.getElementById('prog-best-score').textContent = `${best} / 10`;
+                document.getElementById('prog-test-count').textContent = appData.testHistory.length;
+            }
+
+            updateHistoryTable();
+        }
+
+        function updateHistoryTable() {
+            const tbody = document.getElementById('test-history-tbody');
+            if (appData.testHistory.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400 italic">Chưa có lịch sử làm bài.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = appData.testHistory.slice(0, 5).map(h => `
+                <tr class="hover:bg-slate-50">
+                    <td class="p-3 text-slate-600">${h.date}</td>
+                    <td class="p-3 font-bold text-pastel-blue">${h.score}</td>
+                    <td class="p-3 text-slate-700">${h.correct}</td>
+                    <td class="p-3 text-xs">${parseFloat(h.score) >= 7 ? '<span class="text-green-600 font-bold">Đạt (Pass)</span>' : '<span class="text-red-500 font-semibold">Cần ôn luyện thêm</span>'}</td>
+                </tr>
+            `).join('');
+        }
+
+        function clearAllData() {
+            if (confirm("Bạn có chắc chắn muốn xóa toàn bộ tiến độ và lịch sử làm bài?")) {
+                localStorage.removeItem(APP_STORAGE_KEY);
+                appData = {
+                    l15Completed: false,
+                    l16Completed: false,
+                    l15QuizScore: 0,
+                    testHistory: [],
+                    savedWriting: ""
+                };
+                document.getElementById('user-writing-input').value = "";
+                updateGlobalProgress();
+                alert("Đã xóa toàn bộ dữ liệu!");
+            }
+        }
+    </script>
+</body>
+</html>
